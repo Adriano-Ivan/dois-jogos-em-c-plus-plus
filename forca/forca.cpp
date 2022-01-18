@@ -5,9 +5,12 @@
 #include<fstream>
 #include <ctime>
 #include<cstdlib>
+#include "nao_acertou.cpp"
+#include "letra_existe.cpp"
+
 using namespace std;
 
-string PALAVRA_SECRETA="FINLANDES";
+string palavra_secreta="FINLANDES";
 map<char, bool> chutou;
 vector<char> chutes_errados;
 
@@ -19,7 +22,7 @@ void imprimir_chutes_errados(){
 }
 void imprimir_acertos(){
     cout<<endl;
-    for(char letra : PALAVRA_SECRETA){
+    for(char letra : palavra_secreta){
         if(chutou[letra]){
             cout << letra << " ";
         }else{
@@ -35,14 +38,7 @@ void imprimir_titulo(){
     cout << endl;
  
 }
-bool letra_existe(char letra_do_chute){
-    for(char letra_da_palavra : PALAVRA_SECRETA){
-        if(letra_do_chute == letra_da_palavra){
-            return true;
-        }
-    }
-    return false;
-}
+
 void tratar_chute_e_mostrar_feedback(){
     char chute;
     cout << "Seu chute: ";
@@ -60,14 +56,6 @@ void tratar_chute_e_mostrar_feedback(){
     cout<<endl;
 }
 
-bool nao_acertou(){
-    for(char letra : PALAVRA_SECRETA){
-        if(!chutou[letra]){
-            return true;
-        }
-    }
-    return false;
-}
 bool nao_enforcou(){
     return chutes_errados.size() < 5;
 }
@@ -104,7 +92,7 @@ void sorteia_palavra(){
     srand(time(NULL));
     int indice_palavra = rand()%palavras.size();
 
-    PALAVRA_SECRETA=palavras[indice_palavra];
+    palavra_secreta=palavras[indice_palavra];
 }
 
 void salvar_no_arquivo(vector<string> nova_lista_de_palavras){
@@ -147,7 +135,7 @@ int main(){
     }
 
     cout << "Fim de jogo !"<< endl;
-    cout << "A palavra secreta era: "<<PALAVRA_SECRETA<<endl;
+    cout << "A palavra secreta era: "<<palavra_secreta<<endl;
 
     if(nao_acertou()){
         cout << "Você perdeu dessa vez !Tente novamente !"<<endl;
